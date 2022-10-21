@@ -12,7 +12,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Table(name = "owners")
+@Table(name = "owners", schema = "service")
 public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,9 @@ public class Owner {
     @Column(name = "last_name")
     private String lastName;
     private int age;
-//    @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, orphanRemoval = true)
-//    @ToString.Exclude
-//    private List<Car> cars;
+    @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<Car> cars;
 
     @Override
     public boolean equals(Object o) {

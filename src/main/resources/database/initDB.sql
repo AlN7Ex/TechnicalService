@@ -5,3 +5,11 @@ CREATE TABLE IF NOT EXISTS service.owners
     last_name VARCHAR(20) NOT NULL ,
     age int NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS service.cars
+(
+    id BIGSERIAL PRIMARY KEY ,
+    brand VARCHAR(25) ,
+    model VARCHAR(25) ,
+    owner_id BIGSERIAL REFERENCES service.owners (id) ON DELETE CASCADE
+);

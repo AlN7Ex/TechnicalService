@@ -2,7 +2,8 @@ package com.example.springboothiber.model;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
+@Table(name = "cars", schema = "service")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,5 +11,6 @@ public class Car {
     private String brand;
     private String model;
     @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "owner_id")
     private Owner owner;
 }

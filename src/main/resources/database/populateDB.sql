@@ -1,0 +1,12 @@
+-- INSERT INTO service.owners (first_name, last_name, age) VALUES ('Volodya', 'Karas', 33);
+-- SELECT * FROM service.owners;
+-- INSERT INTO service.cars (brand, model, owner_id) VALUES ('Audi', 'A5', 1);
+-- INSERT INTO service.cars (brand, model, owner_id) VALUES ('Mersedes', 'C63', 1);
+--
+-- SELECT * FROM service.cars;
+-- SELECT owners.id, first_name, last_name, age, c.brand, c.model
+-- FROM service.owners
+--          INNER JOIN service.cars c
+--                     ON owners.id = c.owner_id;
+--
+-- DELETE FROM service.owners WHERE id = 1
