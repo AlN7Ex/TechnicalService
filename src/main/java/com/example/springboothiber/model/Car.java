@@ -1,9 +1,13 @@
 package com.example.springboothiber.model;
 
+import lombok.Data;
+import lombok.ToString;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "cars", schema = "service")
+@Data
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
