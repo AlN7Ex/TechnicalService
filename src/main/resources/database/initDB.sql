@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS service.owners
 CREATE TABLE IF NOT EXISTS service.cars
 (
     id BIGSERIAL PRIMARY KEY ,
-    brand VARCHAR(25) ,
-    model VARCHAR(25) ,
+    brand VARCHAR(25) NOT NULL ,
+    model VARCHAR(25) NOT NULL ,
     owner_id BIGSERIAL REFERENCES service.owners (id) ON DELETE CASCADE
 );

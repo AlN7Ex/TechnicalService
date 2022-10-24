@@ -1,6 +1,5 @@
 package com.example.springboothiber.services;
 
-import com.example.springboothiber.response.CarResponse;
 import com.example.springboothiber.response.OwnerResponse;
 import com.example.springboothiber.model.Owner;
 import com.example.springboothiber.repositories.OwnerRepository;
@@ -20,22 +19,35 @@ public class OwnerServiceImpl implements OwnerService{
     @Override
     public OwnerResponse getOwner(Long id) {
         Owner owner = repository.getOwnerById(id);
-        OwnerResponse response = new OwnerResponse();
-        response.setFirstName(owner.getFirstName());
-        response.setLastName(owner.getLastName());
-        response.setCars(owner.getCars().stream()
-                .map(car -> new CarResponse(car.getBrand(), car.getModel()))
-                .collect(Collectors.toList()));
-        return response;
+        //        response.setCars(owner.getCars().stream()
+//                .map(car -> new CarResponse(car.getBrand(), car.getModel()))
+//                .collect(Collectors.toList()));
+        return new OwnerResponse(
+                owner.getFirstName(),
+                owner.getLastName()
+        );
     }
 
     @Override
     public List<OwnerResponse> getAllOwners() {
-        return null;
+        List<Owner> owners = repository.getOwners();
+        return owners.stream()
+                .map(owner -> new OwnerResponse(
+                        owner.getFirstName(), owner.getLastName())
+                )
+                .collect(Collectors.toList());
     }
 
     @Override
     public OwnerResponse addOwner(OwnerRequest request) {
-        return null;
+        Owner owner = new Owner();
+        owner.setFirstName(request.getFirstName());
+        owner.setLastName(request.getLastName());
+        owner.setAge(request.getAge());
+        Owner saved = repository.save(owner);
+
+        return new OwnerResponse(
+                saved.getFirstName(), saved.getLastName()
+        );
     }
 }

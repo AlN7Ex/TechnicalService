@@ -1,12 +1,12 @@
 package com.example.springboothiber.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class OwnerResponse {
-    private String firstName;
-    private String lastName;
-    private List<CarResponse> cars;
+    private final String firstName;
+    private final String lastName;
 }

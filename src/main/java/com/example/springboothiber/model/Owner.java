@@ -23,7 +23,7 @@ public class Owner {
     private String lastName;
     private int age;
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, orphanRemoval = true)
-//    @ToString.Exclude
+    @ToString.Exclude
     private List<Car> cars;
 
     @Override
