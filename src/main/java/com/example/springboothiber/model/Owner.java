@@ -11,7 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Table(name = "owners", schema = "service")
 public class Owner {
     @Id
@@ -25,6 +25,12 @@ public class Owner {
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<Car> cars;
+
+    public Owner(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
 
     @Override
     public boolean equals(Object o) {

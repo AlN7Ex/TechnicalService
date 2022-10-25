@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController(value = "/owner/{id}")
+//@RestController(value = "/owner/{id}")
 @AllArgsConstructor
 public class CarController {
 

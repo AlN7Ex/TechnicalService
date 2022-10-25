@@ -17,29 +17,32 @@ public class OwnerServiceImpl implements OwnerService{
     private final OwnerRepository repository;
 
     @Override
-    public OwnerResponse getOwner(Long id) {
+    public OwnerResponse read(Long id) {
         Owner owner = repository.getOwnerById(id);
-        //        response.setCars(owner.getCars().stream()
-//                .map(car -> new CarResponse(car.getBrand(), car.getModel()))
-//                .collect(Collectors.toList()));
+
         return new OwnerResponse(
+                owner.getId(),
                 owner.getFirstName(),
-                owner.getLastName()
+                owner.getLastName(),
+                owner.getAge()
         );
     }
 
     @Override
-    public List<OwnerResponse> getAllOwners() {
+    public List<OwnerResponse> readAll() {
         List<Owner> owners = repository.getOwners();
         return owners.stream()
                 .map(owner -> new OwnerResponse(
-                        owner.getFirstName(), owner.getLastName())
+                        owner.getId(),
+                        owner.getFirstName(),
+                        owner.getLastName(),
+                        owner.getAge())
                 )
                 .collect(Collectors.toList());
     }
 
     @Override
-    public OwnerResponse addOwner(OwnerRequest request) {
+    public OwnerResponse create(OwnerRequest request) {
         Owner owner = new Owner();
         owner.setFirstName(request.getFirstName());
         owner.setLastName(request.getLastName());
@@ -47,7 +50,41 @@ public class OwnerServiceImpl implements OwnerService{
         Owner saved = repository.save(owner);
 
         return new OwnerResponse(
-                saved.getFirstName(), saved.getLastName()
+                saved.getId(),
+                saved.getFirstName(),
+                saved.getLastName(),
+                saved.getAge()
         );
+    }
+
+    @Override
+    public boolean update(OwnerRequest request, Long id) {
+        Owner ownerById = repository.getOwnerById(id);
+
+        if (ownerById != null) {
+            ownerById.setFirstName(request.getFirstName());
+            ownerById.setLastName(request.getLastName());
+            ownerById.setAge(request.getAge());
+            repository.save(ownerById);
+
+            return true;
+        } else {
+            repository.save(new Owner(
+                    request.getFirstName(),
+                    request.getLastName(),
+                    request.getAge()));
+            return true;
+        }
+//        return false;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+
+            return true;
+        }
+        return false;
     }
 }

@@ -8,7 +8,9 @@ import java.util.List;
 
 @Service
 public interface OwnerService {
-    OwnerResponse getOwner(Long id);
-    List<OwnerResponse> getAllOwners();
-    OwnerResponse addOwner(OwnerRequest request);
+    OwnerResponse read(Long id);
+    List<OwnerResponse> readAll();
+    OwnerResponse create(OwnerRequest request);
+    boolean update(OwnerRequest request, Long id);
+    boolean delete(Long id);
 }
