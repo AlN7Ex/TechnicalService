@@ -1,4 +1,4 @@
-package com.example.springboothiber.model;
+package com.example.springboothiber.model.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;

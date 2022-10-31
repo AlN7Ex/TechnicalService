@@ -1,4 +1,4 @@
-package com.example.springboothiber.response;
+package com.example.springboothiber.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CarResponse {
-    private final String model;
+    private final Long id;
     private final String brand;
+    private final String model;
 }

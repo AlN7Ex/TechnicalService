@@ -1,7 +1,7 @@
 package com.example.springboothiber.services;
 
-import com.example.springboothiber.response.OwnerResponse;
-import com.example.springboothiber.request.OwnerRequest;
+import com.example.springboothiber.model.response.OwnerResponse;
+import com.example.springboothiber.model.request.OwnerRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

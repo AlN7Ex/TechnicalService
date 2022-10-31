@@ -1,6 +1,6 @@
 package com.example.springboothiber.repositories;
 
-import com.example.springboothiber.model.Owner;
+import com.example.springboothiber.model.entity.Owner;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

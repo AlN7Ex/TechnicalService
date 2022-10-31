@@ -1,4 +1,4 @@
-package com.example.springboothiber.response;
+package com.example.springboothiber.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

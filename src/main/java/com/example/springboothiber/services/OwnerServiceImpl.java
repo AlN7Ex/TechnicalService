@@ -1,9 +1,9 @@
 package com.example.springboothiber.services;
 
-import com.example.springboothiber.response.OwnerResponse;
-import com.example.springboothiber.model.Owner;
+import com.example.springboothiber.model.response.OwnerResponse;
+import com.example.springboothiber.model.entity.Owner;
 import com.example.springboothiber.repositories.OwnerRepository;
-import com.example.springboothiber.request.OwnerRequest;
+import com.example.springboothiber.model.request.OwnerRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -68,14 +68,8 @@ public class OwnerServiceImpl implements OwnerService{
             repository.save(ownerById);
 
             return true;
-        } else {
-            repository.save(new Owner(
-                    request.getFirstName(),
-                    request.getLastName(),
-                    request.getAge()));
-            return true;
         }
-//        return false;
+        return false;
     }
 
     @Override

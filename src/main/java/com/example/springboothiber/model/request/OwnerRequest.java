@@ -1,4 +1,4 @@
-package com.example.springboothiber.request;
+package com.example.springboothiber.model.request;
 
 import lombok.Data;
 
