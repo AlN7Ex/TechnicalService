@@ -7,11 +7,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cars", schema = "service")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Table(name = "cars", schema = "service")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -22,8 +22,8 @@ public class OwnerServiceImpl implements OwnerService{
 
         return new OwnerResponse(
                 owner.getId(),
-                owner.getFirstName(),
-                owner.getLastName(),
+                owner.getFirstname(),
+                owner.getLastname(),
                 owner.getAge()
         );
     }
@@ -34,8 +34,8 @@ public class OwnerServiceImpl implements OwnerService{
         return owners.stream()
                 .map(owner -> new OwnerResponse(
                         owner.getId(),
-                        owner.getFirstName(),
-                        owner.getLastName(),
+                        owner.getFirstname(),
+                        owner.getLastname(),
                         owner.getAge())
                 )
                 .collect(Collectors.toList());
@@ -44,15 +44,15 @@ public class OwnerServiceImpl implements OwnerService{
     @Override
     public OwnerResponse create(OwnerRequest request) {
         Owner owner = new Owner();
-        owner.setFirstName(request.getFirstName());
-        owner.setLastName(request.getLastName());
+        owner.setFirstname(request.getFirstName());
+        owner.setLastname(request.getLastName());
         owner.setAge(request.getAge());
         Owner saved = repository.save(owner);
 
         return new OwnerResponse(
                 saved.getId(),
-                saved.getFirstName(),
-                saved.getLastName(),
+                saved.getFirstname(),
+                saved.getLastname(),
                 saved.getAge()
         );
     }
@@ -62,8 +62,8 @@ public class OwnerServiceImpl implements OwnerService{
         Owner ownerById = repository.getOwnerById(id);
 
         if (ownerById != null) {
-            ownerById.setFirstName(request.getFirstName());
-            ownerById.setLastName(request.getLastName());
+            ownerById.setFirstname(request.getFirstName());
+            ownerById.setLastname(request.getLastName());
             ownerById.setAge(request.getAge());
             repository.save(ownerById);
 
