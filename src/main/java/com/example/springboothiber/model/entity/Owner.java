@@ -17,10 +17,11 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(nullable = false)
     private String firstname;
-    @Column
+    @Column(nullable = false)
     private String lastname;
+    @Column(nullable = false)
     private int age;
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

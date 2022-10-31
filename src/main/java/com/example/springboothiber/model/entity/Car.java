@@ -16,7 +16,9 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String brand;
+    @Column(nullable = false)
     private String model;
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
