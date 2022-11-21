@@ -19,11 +19,11 @@ public class UserController {
         return service.read(id);
     }
 
-    @GetMapping(value = "/users/")
+    @GetMapping(value = "/users")
     public User getUserByLogin(@RequestParam String login) {
         return service.readByLogin(login);
     }
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/users/")
     public List<User> getUsers() {
         return service.readAll();
     }

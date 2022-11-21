@@ -1,6 +1,7 @@
 package com.example.springboothiber.repositories;
 
 import com.example.springboothiber.model.entity.User;
+import com.example.springboothiber.model.response.UserResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

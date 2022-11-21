@@ -4,7 +4,7 @@ import com.example.springboothiber.model.entity.Car;
 import com.example.springboothiber.model.request.CarRequest;
 import com.example.springboothiber.model.response.CarResponse;
 import com.example.springboothiber.repositories.CarRepository;
-import com.example.springboothiber.repositories.OwnerRepository;
+import com.example.springboothiber.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CarServiceImpl implements CarService{
 
-    private final CarRepository repository;
-    private final OwnerRepository ownerRepository;
+    private final CarRepository carRepository;
+    private final UserRepository userRepository;
 
     @Override
     public CarResponse read(Long id) {
-        Car carById = repository.getCarById(id);
+        Car carById = carRepository.getCarById(id);
 
         return new CarResponse(
                 carById.getId(),
@@ -31,7 +31,7 @@ public class CarServiceImpl implements CarService{
 
     @Override
     public List<CarResponse> readAll() {
-        List<Car> allCars = repository.getAllCars();
+        List<Car> allCars = carRepository.getAllCars();
 
         return allCars.stream()
                 .map(car -> new CarResponse(
@@ -47,9 +47,9 @@ public class CarServiceImpl implements CarService{
         Car car = new Car();
         car.setBrand(request.getBrand());
         car.setModel(request.getModel());
-        car.setOwner(ownerRepository.getOwnerById(id));
+        car.setUser(userRepository.getUserById(id));
 
-        Car saved = repository.save(car);
+        Car saved = carRepository.save(car);
 
         return new CarResponse(
                 saved.getId(),
@@ -60,13 +60,13 @@ public class CarServiceImpl implements CarService{
 
     @Override
     public boolean update(CarRequest request, Long id) {
-        Car carById = repository.getCarById(id);
+        Car carById = carRepository.getCarById(id);
 
         if (carById != null) {
             carById.setBrand(request.getBrand());
             carById.setModel(request.getModel());
 
-            repository.save(carById);
+            carRepository.save(carById);
 
             return true;
         }
@@ -76,8 +76,8 @@ public class CarServiceImpl implements CarService{
 
     @Override
     public boolean delete(Long id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
+        if (carRepository.existsById(id)) {
+            carRepository.deleteById(id);
 
             return true;
         }
@@ -85,11 +85,11 @@ public class CarServiceImpl implements CarService{
     }
 
     @Override
-    public List<CarResponse> readOwnerCars(Long id) {
+    public List<CarResponse> readUserCars(Long id) {
 
-        List<Car> carsByOwnerId = repository.getCarsByOwnerId(id);
+        List<Car> carsByUserId = carRepository.getCarsByUserId(id);
 
-        return carsByOwnerId.stream()
+        return carsByUserId.stream()
                 .map(car -> new CarResponse(
                         car.getId(),
                         car.getBrand(),

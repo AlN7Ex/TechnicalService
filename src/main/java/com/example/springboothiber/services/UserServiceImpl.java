@@ -3,6 +3,7 @@ package com.example.springboothiber.services;
 import com.example.springboothiber.model.entity.Role;
 import com.example.springboothiber.model.entity.User;
 import com.example.springboothiber.model.request.UserRequest;
+import com.example.springboothiber.model.response.UserResponse;
 import com.example.springboothiber.repositories.RoleRepository;
 import com.example.springboothiber.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
         if (userByLogin == null){
             throw new EntityExistsException();
         }
-        return null;
+        return userByLogin;
     }
 
     @Override

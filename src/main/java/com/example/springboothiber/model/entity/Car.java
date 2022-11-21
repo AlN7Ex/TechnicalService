@@ -22,7 +22,7 @@ public class Car {
     private String model;
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
-    private Owner owner;
+    private User user;
 
     @Override
     public boolean equals(Object o) {
