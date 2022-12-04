@@ -2,6 +2,7 @@ package com.example.springboothiber.controllers;
 
 import com.example.springboothiber.model.entity.User;
 import com.example.springboothiber.model.request.UserRequest;
+import com.example.springboothiber.model.response.UserResponse;
 import com.example.springboothiber.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +16,17 @@ public class UserController {
 
     private final UserService service;
 
-    public User getUserById(@PathVariable Long id) {
+    @GetMapping(value = "/users/{id}")
+    public UserResponse getUserById(@PathVariable Long id) {
         return service.read(id);
     }
 
     @GetMapping(value = "/users")
-    public User getUserByLogin(@RequestParam String login) {
+    public UserResponse getUserByLogin(@RequestParam String login) {
         return service.readByLogin(login);
     }
     @GetMapping(value = "/users/")
-    public List<User> getUsers() {
+    public List<UserResponse> getUsers() {
         return service.readAll();
     }
 

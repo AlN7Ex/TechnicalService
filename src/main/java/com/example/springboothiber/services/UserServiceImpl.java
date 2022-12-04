@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -21,22 +22,54 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
     @Override
-    public User readByLogin(String login) {
+    public UserResponse readByLogin(String login) {
         User userByLogin = userRepository.getUserByLogin(login);
         if (userByLogin == null){
             throw new EntityExistsException();
         }
-        return userByLogin;
+
+        UserResponse userResponse = new UserResponse(
+                userByLogin.getId(),
+                userByLogin.getLogin(),
+                userByLogin.getFirstname(),
+                userByLogin.getLastname(),
+                userByLogin.getAge(),
+                userByLogin.getRoles()
+        );
+
+        return userResponse;
     }
 
     @Override
-    public User read(Long id) {
-        return userRepository.getUserById(id);
+    public UserResponse read(Long id) {
+        User userById = userRepository.getUserById(id);
+        UserResponse userResponse = new UserResponse(
+                userById.getId(),
+                userById.getLogin(),
+                userById.getFirstname(),
+                userById.getLastname(),
+                userById.getAge(),
+                userById.getRoles()
+        );
+
+        return userResponse;
+
     }
 
     @Override
-    public List<User> readAll() {
-        return userRepository.findAll();
+    public List<UserResponse> readAll() {
+        List<User> allUsers = userRepository.findAll();
+
+        return allUsers.stream()
+                .map(user -> new UserResponse(
+                        user.getId(),
+                        user.getLogin(),
+                        user.getFirstname(),
+                        user.getLastname(),
+                        user.getAge(),
+                        user.getRoles()
+                ))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -84,17 +84,17 @@ public class CarServiceImpl implements CarService{
         return false;
     }
 
-    @Override
-    public List<CarResponse> readUserCars(Long id) {
-
-        List<Car> carsByUserId = carRepository.getCarsByUserId(id);
-
-        return carsByUserId.stream()
-                .map(car -> new CarResponse(
-                        car.getId(),
-                        car.getBrand(),
-                        car.getModel()
-                ))
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<CarResponse> readUserCars(Long id) {
+//
+//        List<Car> carsByUserId = carRepository.getCarsByUserId(id);
+//
+//        return carsByUserId.stream()
+//                .map(car -> new CarResponse(
+//                        car.getId(),
+//                        car.getBrand(),
+//                        car.getModel()
+//                ))
+//                .collect(Collectors.toList());
+//    }
 }
