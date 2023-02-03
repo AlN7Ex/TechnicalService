@@ -12,9 +12,11 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     Car getCarById(Long id);
 
-    @Query(value = "SELECT service.cars.id, brand, model, user_id " +
+    @Query(value = "SELECT service s s.cars.brand, model " +
             "FROM service.cars", nativeQuery = true)
     List<Car> getAllCars();
 
     List<Car> getCarsByUserId(Long id);
+
+    boolean deleteCarById(Long id);
 }
