@@ -22,7 +22,7 @@ public class CarController {
 
 
     @GetMapping(value = "/cars/")
-    public List<CarResponse> getOwnersCars() {
+    public List<CarResponse> getUsersCars() {
         return service.readAll();
     }
 
@@ -31,10 +31,10 @@ public class CarController {
         return service.create(request, id);
     }
 
-    @GetMapping(value = "/cars")
-    public List<CarResponse> getCarsByOwnerId(@RequestParam Long ownerId) {
-        return service.readOwnerCars(ownerId);
-    }
+//    @GetMapping(value = "/cars")
+//    public List<CarResponse> getCarsByOwnerId(@RequestParam Long ownerId) {
+//        return service.readUserCars(ownerId);
+//    }
 
     @DeleteMapping(value = "/cars/{id}")
     public boolean deleteCar(@PathVariable Long id) {

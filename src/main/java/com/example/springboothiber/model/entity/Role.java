@@ -10,26 +10,33 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-@Table(name = "cars", schema = "service")
-public class Car {
+@Table(name = "roles", schema = "service")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String brand;
-    @Column(nullable = false)
-    private String model;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private User user;
+    @Column(nullable = false, length = 40)
+    private String name;
+
+    public Role(){}
+    public Role(Long id){
+        this.id = id;
+    }
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Car car = (Car) o;
-        return id != null && Objects.equals(id, car.id);
+        Role role = (Role) o;
+        return id != null && Objects.equals(id, role.id);
     }
 
     @Override

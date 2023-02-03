@@ -15,6 +15,6 @@ public interface CarService {
     boolean update(CarRequest request, Long id);
     boolean delete(Long id);
 
-    List<CarResponse> readOwnerCars(Long ownerId);
+//    List<CarResponse> readUserCars(Long ownerId);
 
 }
