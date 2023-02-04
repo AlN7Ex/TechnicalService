@@ -1,6 +1,7 @@
 package com.example.springboothiber.services;
 
 import com.example.springboothiber.model.entity.Car;
+import com.example.springboothiber.model.entity.User;
 import com.example.springboothiber.model.request.CarRequest;
 import com.example.springboothiber.model.response.CarResponse;
 import com.example.springboothiber.repositories.CarRepository;
@@ -9,69 +10,62 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class CarServiceImpl implements CarService{
+public class CarServiceImpl implements CarService {
 
+    //Maybe need to use Facade pattern
     private final CarRepository carRepository;
     private final UserRepository userRepository;
 
     @Override
     public CarResponse read(Long id) {
-        Car carById = carRepository.getCarById(id);
+        Car car = carRepository.findCarById(id);
+        if (car == null) {
+            return null;
+        }
 
-        return new CarResponse(
-                carById.getId(),
-                carById.getBrand(),
-                carById.getModel()
-        );
+        return new CarResponse(car.getBrand(), car.getModel());
     }
 
     @Override
     public List<CarResponse> readAll() {
-        List<Car> allCars = carRepository.getAllCars();
+        List<Car> cars = carRepository.findAll();
+        if (cars == null) {
+            return null;
+        }
 
-        return allCars.stream()
-                .map(car -> new CarResponse(
-                        car.getId(),
-                        car.getBrand(),
-                        car.getModel()
-                ))
-                .collect(Collectors.toList());
+        return cars.stream()
+                .map(car -> new CarResponse(car.getBrand(), car.getModel()))
+                .toList();
     }
 
+
     @Override
-    public CarResponse create(CarRequest request, Long id) {
-        Car car = new Car();
-        car.setBrand(request.getBrand());
-        car.setModel(request.getModel());
-        car.setUser(userRepository.getUserById(id));
+    public boolean create(CarRequest request, Long id) {
+        User user = userRepository.getUserById(id);
+        if (user == null) {
+            return false;
+        }
 
-        Car saved = carRepository.save(car);
+        carRepository.save(new Car(request.getBrand(), request.getModel(), user));
 
-        return new CarResponse(
-                saved.getId(),
-                saved.getBrand(),
-                saved.getModel()
-        );
+        return true;
     }
 
     @Override
     public boolean update(CarRequest request, Long id) {
-        Car carById = carRepository.getCarById(id);
+        Car carById = carRepository.findCarById(id);
 
-        if (carById != null) {
-            carById.setBrand(request.getBrand());
-            carById.setModel(request.getModel());
-
-            carRepository.save(carById);
-
-            return true;
+        if (carById == null) {
+            return false;
         }
+        carById.setBrand(request.getBrand());
+        carById.setModel(request.getModel());
+        carRepository.save(carById);
 
-        return false;
+        return true;
     }
 
     @Override
@@ -83,7 +77,7 @@ public class CarServiceImpl implements CarService{
         }
         return false;
     }
-
+}
 //    @Override
 //    public List<CarResponse> readUserCars(Long id) {
 //
@@ -97,4 +91,3 @@ public class CarServiceImpl implements CarService{
 //                ))
 //                .collect(Collectors.toList());
 //    }
-}

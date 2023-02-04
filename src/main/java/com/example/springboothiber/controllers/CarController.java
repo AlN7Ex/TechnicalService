@@ -20,14 +20,13 @@ public class CarController {
        return service.read(id);
     }
 
-
-    @GetMapping(value = "/cars/")
+    @GetMapping(value = "/cars")
     public List<CarResponse> getUsersCars() {
         return service.readAll();
     }
 
     @PostMapping(value = "/cars/{id}")
-    public CarResponse addCar(@RequestBody CarRequest request, @PathVariable Long id) {
+    public boolean addCar(@RequestBody CarRequest request, @PathVariable Long id) {
         return service.create(request, id);
     }
 

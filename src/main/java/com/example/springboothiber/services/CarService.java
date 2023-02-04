@@ -11,7 +11,7 @@ public interface CarService {
 
     CarResponse read(Long id);
     List<CarResponse> readAll();
-    CarResponse create(CarRequest request, Long id);
+    boolean create(CarRequest request, Long id);
     boolean update(CarRequest request, Long id);
     boolean delete(Long id);
 

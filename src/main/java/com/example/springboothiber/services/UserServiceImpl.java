@@ -8,9 +8,6 @@ import com.example.springboothiber.repositories.RoleRepository;
 import com.example.springboothiber.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,10 +22,10 @@ public class UserServiceImpl implements UserService {
     public UserResponse readByLogin(String login) {
         User userByLogin = userRepository.getUserByLogin(login);
         if (userByLogin == null){
-            throw new EntityExistsException();
+            return null;
         }
 
-        UserResponse userResponse = new UserResponse(
+        return new UserResponse(
                 userByLogin.getId(),
                 userByLogin.getLogin(),
                 userByLogin.getFirstname(),
@@ -36,14 +33,15 @@ public class UserServiceImpl implements UserService {
                 userByLogin.getAge(),
                 userByLogin.getRoles()
         );
-
-        return userResponse;
     }
 
     @Override
     public UserResponse read(Long id) {
         User userById = userRepository.getUserById(id);
-        UserResponse userResponse = new UserResponse(
+        if (userById == null) {
+            return null;
+        }
+        return new UserResponse(
                 userById.getId(),
                 userById.getLogin(),
                 userById.getFirstname(),
@@ -51,16 +49,16 @@ public class UserServiceImpl implements UserService {
                 userById.getAge(),
                 userById.getRoles()
         );
-
-        return userResponse;
-
     }
 
     @Override
     public List<UserResponse> readAll() {
-        List<User> allUsers = userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        if (users == null) {
+            return null;
+        }
 
-        return allUsers.stream()
+        return users.stream()
                 .map(user -> new UserResponse(
                         user.getId(),
                         user.getLogin(),
@@ -105,25 +103,24 @@ public class UserServiceImpl implements UserService {
 
             return true;
         }
-
         return false;
     }
 
     @Override
     public boolean update(UserRequest request, Long id) {
         User userById = userRepository.getUserById(id);
-        if (userById != null) {
-            userById.setLogin(request.getLogin());
-            userById.setPassword(request.getPassword());
-            userById.setFirstname(request.getFirstname());
-            userById.setLastname(request.getLastname());
-            userById.setAge(request.getAge());
-
-            userRepository.save(userById);
-
-            return true;
+        if (userById == null) {
+            return false;
         }
-        return false;
+        userById.setLogin(request.getLogin());
+        userById.setPassword(request.getPassword());
+        userById.setFirstname(request.getFirstname());
+        userById.setLastname(request.getLastname());
+        userById.setAge(request.getAge());
+
+        userRepository.save(userById);
+
+        return true;
     }
 
 
